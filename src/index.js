@@ -6,21 +6,9 @@ import {composeWithDevTools} from 'redux-devtools-extension'
 import 'bootstrap/dist/css/bootstrap.css'
 import './index.css'
 import App from './App'
+import rootReducer from './reducers'
 
-const authReducer = (state = {}, action) => {
-  switch (action.type) {
-    case 'LOGGED_IN_USER':
-      return {...state, ...action.payload}
-    case 'LOGOUT':
-      return action.payload
-    default:
-      return state
-  }
-}
-
-const rootReducer = combineReducers({user: authReducer})
-
-const store = createStore(rootReducer, composeWithDevTools)
+const store = createStore(rootReducer, composeWithDevTools())
 
 ReactDOM.render(
   <React.StrictMode>
