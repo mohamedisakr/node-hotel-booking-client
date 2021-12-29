@@ -7,13 +7,60 @@ const Register = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault()
-    alert('send user info to backend')
+    console.table(name, email, password)
+  }
+
+  const handleNameChange = (event) => {
+    setName(event.target.value)
+  }
+
+  const handleEmailChange = (event) => {
+    setEmail(event.target.value)
+  }
+
+  const handlePasswordChange = (event) => {
+    setPassword(event.target.value)
   }
 
   const registerForm = () => {
     return (
-      <form onSubmit={handleSubmit}>
-        <button type="submit">Submit</button>
+      <form className="mt-3" onSubmit={handleSubmit}>
+        <div className="form-group mb-3">
+          <label className="form-label">Name:</label>
+          <input
+            type="text"
+            className="form-control"
+            placeholder="Type your name"
+            value={name}
+            onChange={handleNameChange}
+            data-test-id="name"
+          />
+        </div>
+
+        <div className="form-group mb-3">
+          <label className="form-label">Email:</label>
+          <input
+            type="email"
+            className="form-control"
+            placeholder="Type your email"
+            value={email}
+            onChange={handleEmailChange}
+            data-test-id="email"
+          />
+        </div>
+
+        <div className="form-group mb-3">
+          <label className="form-label">Password:</label>
+          <input
+            type="password"
+            className="form-control"
+            placeholder="Enter your password"
+            value={password}
+            onChange={handlePasswordChange}
+            data-test-id="password"
+          />
+        </div>
+        <button className="btn btn-primary">Submit</button>
       </form>
     )
   }
