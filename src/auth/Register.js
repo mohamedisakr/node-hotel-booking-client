@@ -10,7 +10,8 @@ const Register = () => {
   const [password, setPassword] = useState('')
   const navigate = useNavigate()
 
-  const url = 'http://localhost:5000/api/v1/register'
+  const apiUrl = process.env.REACT_APP_API_URL
+  const url = `${apiUrl}/register`
 
   const handleSubmit = async (event) => {
     event.preventDefault()
