@@ -1,8 +1,8 @@
 import {useState} from 'react'
 import {useNavigate} from 'react-router-dom'
-import axios from 'axios'
 import {toast} from 'react-toastify'
 import RegisterForm from '../components/RegisterForm'
+import {register} from '../actions/auth'
 
 const Register = () => {
   const [name, setName] = useState('')
@@ -10,14 +10,11 @@ const Register = () => {
   const [password, setPassword] = useState('')
   const navigate = useNavigate()
 
-  const apiUrl = process.env.REACT_APP_API_URL
-  const url = `${apiUrl}/register`
-
   const handleSubmit = async (event) => {
     event.preventDefault()
     try {
       const newUser = {name, email, password}
-      const res = await axios.post(url, newUser)
+      const res = register(newUser) //await axios.post(url, newUser)
       console.log(`register user ${res}`)
       toast.success('Register success, please login')
       navigate('/login')
