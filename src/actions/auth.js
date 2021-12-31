@@ -13,6 +13,7 @@ export const register = async (user) => {
   }
 }
 
+// export const login = async (user) => {
 export const login = async (user) => {
   const {email, password} = user
   const credentials = {email, password}

@@ -5,17 +5,25 @@ import {login} from '../actions/auth'
 import LoginForm from '../components/LoginForm'
 
 const Login = () => {
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
+  const [email, setEmail] = useState('johndoe@gmail.com')
+  const [password, setPassword] = useState('password')
   // const navigate = useNavigate()
 
   const handleSubmit = async (event) => {
     event.preventDefault()
+    // const credentials = {email, password}
+    console.log(
+      `Sending user credentials - email: ${email}, password : ${password}`,
+    )
     try {
-      const credentials = {email, password}
-      const res = login(credentials)
-      console.log(`Login user ${credentials}`)
-      toast.success('Login success, please login')
+      const res = await login({email, password})
+      if (res.data) {
+        console.log(
+          `Saving user response to redux and local storage & redirect`,
+        )
+        console.log(`data : ${res.data}`)
+      }
+      // toast.success(`Login response ${res}`)
       // navigate('/login')
     } catch (err) {
       console.error(err)
