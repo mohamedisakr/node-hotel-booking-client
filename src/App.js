@@ -8,6 +8,7 @@ import Home from './booking/Home'
 import Register from './auth/Register'
 import Login from './auth/Login'
 import Dashboard from './user/Dashboard'
+import DashboardSeller from './user/DashboardSeller'
 
 const App = () => {
   return (
@@ -24,6 +25,15 @@ const App = () => {
           element={
             <PrivateRoute>
               <Dashboard />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          exact
+          path="/dashboard/seller"
+          element={
+            <PrivateRoute>
+              <DashboardSeller />
             </PrivateRoute>
           }
         />
