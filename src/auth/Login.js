@@ -32,11 +32,11 @@ const Login = () => {
         })
       }
       toast.success(`Login Success`)
-      // navigate('/')
+      navigate('/')
     } catch (err) {
       console.error(`Error : ${err}`)
-      // if (err.response.status === 400) {
-      if (err.status === 400) {
+      if (err.response.status === 400) {
+        // if (err.status === 400) {
         // toast.error(`${err.response.data.message}`)
         // toast.error(`${err.response.message}`)
         toast.error(`${err.message}`)

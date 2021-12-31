@@ -1,6 +1,14 @@
-// const me = {name: 'mohamed', role: 'admin'}
+let userState = null
 
-const authReducer = (state = {}, action) => {
+const auth = JSON.parse(localStorage.getItem('auth'))
+
+if (auth) {
+  userState = auth
+} else {
+  userState = null
+}
+
+const authReducer = (state = userState, action) => {
   switch (action.type) {
     case 'LOGGED_IN_USER':
       return {...state, ...action.payload}
