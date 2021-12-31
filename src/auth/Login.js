@@ -1,5 +1,6 @@
 import {useState} from 'react'
-// import {useNavigate} from 'react-router-dom'
+import {useDispatch} from 'react-redux'
+import {useNavigate} from 'react-router-dom'
 import {toast} from 'react-toastify'
 import {login} from '../actions/auth'
 import LoginForm from '../components/LoginForm'
@@ -7,28 +8,44 @@ import LoginForm from '../components/LoginForm'
 const Login = () => {
   const [email, setEmail] = useState('johndoe@gmail.com')
   const [password, setPassword] = useState('password')
-  // const navigate = useNavigate()
+
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   const handleSubmit = async (event) => {
     event.preventDefault()
-    // const credentials = {email, password}
-    console.log(
-      `Sending user credentials - email: ${email}, password : ${password}`,
-    )
+
     try {
       const res = await login({email, password})
       if (res.data) {
         console.log(
           `Saving user response to redux and local storage & redirect`,
         )
-        console.log(`data : ${res.data}`)
+
+        // save user and his token to localStorage
+        localStorage.setItem('auth', JSON.stringify(res.data))
+
+        // save user and his token to redux
+        dispatch({
+          type: 'LOGGED_IN_USER',
+          payload: res.data,
+        })
       }
-      // toast.success(`Login response ${res}`)
-      // navigate('/login')
+      toast.success(`Login Success`)
+      // navigate('/')
     } catch (err) {
-      console.error(err)
-      if (err.response.status === 400) {
-        toast.error(`${err.response.data.message}`)
+      console.error(`Error : ${err}`)
+      // if (err.response.status === 400) {
+      if (err.status === 400) {
+        // toast.error(`${err.response.data.message}`)
+        // toast.error(`${err.response.message}`)
+        toast.error(`${err.message}`)
+      }
+
+      if (err.response.status === 404) {
+        // toast.error(`${err.response.data.message}`)
+        // toast.error(`${err.response.message}`)
+        toast.error(`${err.message}`)
       }
     }
   }

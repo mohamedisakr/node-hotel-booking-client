@@ -19,6 +19,7 @@ export const login = async (user) => {
   const credentials = {email, password}
   try {
     const res = await axios.post(url, credentials)
+    return res
   } catch (err) {
     console.error(err)
     if (err.response.status === 400) {

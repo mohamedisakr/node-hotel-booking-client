@@ -6,7 +6,7 @@ const Home = () => {
   })
   return (
     <div className="container-fluid">
-      {JSON.stringify(user)}
+      {/* {JSON.stringify(user)} */}
       <h1> Home Page</h1>
     </div>
   )

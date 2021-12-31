@@ -1,6 +1,6 @@
-const me = {name: 'mohamed', role: 'admin'}
+// const me = {name: 'mohamed', role: 'admin'}
 
-const authReducer = (state = {...me}, action) => {
+const authReducer = (state = {}, action) => {
   switch (action.type) {
     case 'LOGGED_IN_USER':
       return {...state, ...action.payload}
