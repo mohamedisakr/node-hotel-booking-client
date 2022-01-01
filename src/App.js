@@ -9,6 +9,7 @@ import Register from './auth/Register'
 import Login from './auth/Login'
 import Dashboard from './user/Dashboard'
 import DashboardSeller from './user/DashboardSeller'
+import NewHotel from './hotels/HotelNew'
 
 const App = () => {
   return (
@@ -34,6 +35,15 @@ const App = () => {
           element={
             <PrivateRoute>
               <DashboardSeller />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          exact
+          path="/hotels/new"
+          element={
+            <PrivateRoute>
+              <NewHotel />
             </PrivateRoute>
           }
         />

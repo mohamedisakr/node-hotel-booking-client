@@ -22,6 +22,12 @@ const TopNav = () => {
       </Link>
 
       {auth !== null && (
+        <Link className="nav-link" to="/dashboard">
+          Dashboard
+        </Link>
+      )}
+
+      {auth !== null && (
         <Link className="nav-link" to="" onClick={logout}>
           Logout
         </Link>

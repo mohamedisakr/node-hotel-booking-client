@@ -1,12 +1,9 @@
-import {useSelector} from 'react-redux'
+// import {useSelector} from 'react-redux'
 
 const Home = () => {
-  const {user} = useSelector((state) => {
-    return state
-  })
+  // const {auth} = useSelector((state) => ({...state}))
   return (
     <div className="container-fluid">
-      {/* {JSON.stringify(user)} */}
       <h1> Home Page</h1>
     </div>
   )
