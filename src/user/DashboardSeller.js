@@ -1,17 +1,13 @@
-import React from 'react'
+import {useSelector} from 'react-redux'
 import DashboardNav from '../components/DashboardNav'
 import ConnectNav from '../components/ConnectNav'
 import {Link} from 'react-router-dom'
 
 const DashboardSeller = () => {
-  return (
-    <>
-      <div className="container-fluid bg-secondary p-5">
-        <ConnectNav />
-      </div>
-      <div className="container-fluid p-4">
-        <DashboardNav />
-      </div>
+  const {auth} = useSelector((state) => ({...state}))
+
+  const connected = () => {
+    return (
       <div className="container-fluid">
         <div className="row">
           <div className="col-md-10">
@@ -25,6 +21,36 @@ const DashboardSeller = () => {
         </div>
         <p>Show all bookings and a button to browse hotels</p>
       </div>
+    )
+  }
+
+  const notConnected = () => {
+    return (
+      <div className="container-fluid">
+        <div className="row">
+          <div className="col-md-10">
+            <h2>Connect with Stripe</h2>
+          </div>
+        </div>
+        <p>Show all bookings and a button to browse hotels</p>
+      </div>
+    )
+  }
+
+  return (
+    <>
+      <div className="container-fluid bg-secondary p-5">
+        <ConnectNav />
+      </div>
+      <div className="container-fluid p-4">
+        <DashboardNav />
+      </div>
+      {auth &&
+      auth.user &&
+      auth.user.stripe_seller &&
+      auth.user.stripe_seller.charges_enabled
+        ? connected()
+        : notConnected()}
     </>
   )
 }
