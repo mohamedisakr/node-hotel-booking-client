@@ -19,6 +19,22 @@ const NewHotel = () => {
     //
   }
 
+  const handleTitleChange = (event) => {
+    setTitle(event.target.value)
+  }
+
+  const handleContentChange = (event) => {
+    setContent(event.target.value)
+  }
+
+  const handlePriceChange = (event) => {
+    setPrice(event.target.value)
+  }
+
+  const handleBedChange = (event) => {
+    setBed(event.target.value)
+  }
+
   const hotelForm = () => {
     return (
       <form onSubmit={handleSubmit}>
@@ -34,7 +50,47 @@ const NewHotel = () => {
               hidden
             />
           </label>
+
+          <input
+            type="text"
+            name="title"
+            data-test-id="title"
+            className="form-control m-2"
+            placeholder="Title"
+            value={title}
+            onChange={handleTitleChange}
+          />
+
+          <textarea
+            name="content"
+            data-test-id="content"
+            className="form-control m-2"
+            placeholder="Content"
+            value={content}
+            onChange={handleContentChange}
+          />
+
+          <input
+            type="number"
+            name="price"
+            data-test-id="price"
+            className="form-control m-2"
+            placeholder="Price"
+            value={price}
+            onChange={handlePriceChange}
+          />
+
+          <input
+            type="number"
+            name="bed"
+            data-test-id="bed"
+            className="form-control m-2"
+            placeholder="Number of Beds"
+            value={bed}
+            onChange={handleBedChange}
+          />
         </div>
+        <button className="btn btn-outline-primary m-2">Save</button>
       </form>
     )
   }
@@ -47,7 +103,25 @@ const NewHotel = () => {
       <div className="container-fluid">
         <div className="row">
           <div className="col-md-10">{hotelForm()}</div>
-          <div className="col-md-2">Image</div>
+          <div className="col-md-2">
+            Image
+            <pre>
+              {JSON.stringify(
+                {
+                  title,
+                  content,
+                  location,
+                  image,
+                  price,
+                  from,
+                  to,
+                  bed,
+                },
+                null,
+                4,
+              )}
+            </pre>
+          </div>
         </div>
       </div>
     </>
