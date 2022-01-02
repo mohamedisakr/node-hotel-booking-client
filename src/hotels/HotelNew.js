@@ -1,5 +1,6 @@
 import {useState} from 'react'
 import AlgoliaPlaces from 'algolia-places-react'
+// import imagePreview from '../../public/images/100-100-preview.png'
 
 const NewHotel = () => {
   const [title, setTitle] = useState('')
@@ -10,13 +11,18 @@ const NewHotel = () => {
   const [from, setFrom] = useState('')
   const [to, setTo] = useState('')
   const [bed, setBed] = useState('')
+  const [preview, setPreview] = useState(
+    `${process.env.PUBLIC_URL}/images/100-100-preview.png`,
+  )
 
   const handleSubmit = (event) => {
     //
   }
 
   const handleImageChange = (event) => {
-    //
+    // console.log(`files : ${event.target.files}`)
+    setPreview(URL.createObjectURL(event.target.files[0]))
+    setImage(event.target.files[0])
   }
 
   const handleTitleChange = (event) => {
@@ -104,7 +110,11 @@ const NewHotel = () => {
         <div className="row">
           <div className="col-md-10">{hotelForm()}</div>
           <div className="col-md-2">
-            Image
+            <img
+              src={preview}
+              alt="image preview"
+              className="img img-fluid m-2"
+            />
             <pre>
               {JSON.stringify(
                 {
