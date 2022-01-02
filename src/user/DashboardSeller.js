@@ -82,12 +82,13 @@ const DashboardSeller = () => {
       <div className="container-fluid p-4">
         <DashboardNav />
       </div>
-      {auth &&
+      {connected()}
+      {/* {auth &&
       auth.user &&
       auth.user.stripe_seller &&
       auth.user.stripe_seller.charges_enabled
         ? connected()
-        : notConnected()}
+        : notConnected()} */}
     </>
   )
 }
