@@ -20,7 +20,7 @@ const DashboardNav = () => {
           className={`nav-link ${active === '/dashboard/seller' && 'active'}`}
           to="/dashboard/seller"
         >
-          Your Bookings
+          Your Hotels
         </Link>
       </li>
     </ul>
