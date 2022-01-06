@@ -3,6 +3,7 @@ import {useSelector} from 'react-redux'
 import {DatePicker, Select} from 'antd'
 import moment from 'moment'
 import {createHotel} from '../actions/hotel'
+import {toast} from 'react-toastify'
 
 const {Option} = Select
 
@@ -21,20 +22,59 @@ const NewHotel = () => {
   const [from, setFrom] = useState('')
   const [to, setTo] = useState('')
   const [bed, setBed] = useState('')
+  const [postedBy, setPostedBy] = useState('')
   const [preview, setPreview] = useState(
     `${process.env.PUBLIC_URL}/images/100-100-preview.png`,
   )
 
   const {
-    auth: {token},
+    auth: {token, user},
   } = useSelector((state) => ({...state}))
-  // const {user, token} = auth
+
+  // useEffect(() => {
+  //   setPostedBy(user._id)
+  // })
+
+  const resetFormState = () => {
+    setTitle('')
+    setContent('')
+    setLocation('')
+    setImage('')
+    setPrice('')
+    setFrom('')
+    setTo('')
+    setBed('')
+    setPostedBy('')
+  }
 
   const handleSubmit = async (event) => {
     event.preventDefault()
-    const hotelToAdd = {title, content, location, image, price, from, to, bed}
-    await createHotel(token, hotelToAdd)
-    console.log(JSON.stringify(hotelToAdd, null, 4))
+    console.log(`user id : ${user._id}`)
+    setPostedBy(user._id)
+    const hotelToAdd = {
+      title,
+      content,
+      location,
+      image,
+      price,
+      from,
+      to,
+      bed,
+      postedBy: postedBy || user._id,
+    }
+    console.table(hotelToAdd)
+
+    try {
+      const res = await createHotel(token, hotelToAdd)
+      console.log(JSON.stringify(hotelToAdd, null, 4))
+      resetFormState()
+      toast.success('New hotel added successfully')
+    } catch (err) {
+      console.error(err)
+      if (err.response.status === 400) {
+        toast.error(`${err.response.data.message}`)
+      }
+    }
   }
 
   const handleImageChange = (event) => {
@@ -132,6 +172,7 @@ const NewHotel = () => {
 
           <Select
             placeholder="Number of Beds"
+            data-test-id="bed"
             onChange={handleBedChange}
             className="w-100 m-2"
             size="large"
@@ -159,6 +200,7 @@ const NewHotel = () => {
             disabledDate={(current) =>
               current && current.valueOf() < moment().subtract(1, 'days')
             }
+            data-test-id="fromDate"
           />
 
           <DatePicker
@@ -168,6 +210,7 @@ const NewHotel = () => {
             disabledDate={(current) =>
               current && current.valueOf() < moment().subtract(1, 'days')
             }
+            data-test-id="toDate"
           />
         </div>
         <button className="btn btn-outline-primary m-2">Save</button>
