@@ -1,6 +1,8 @@
 import {BrowserRouter, Routes, Route} from 'react-router-dom'
 import {ToastContainer} from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+// import 'antd/dist/antd.min.css'
+import 'antd/dist/antd.min.css'
 
 import PrivateRoute from './components/PrivateRoute'
 import TopNav from './components/TopNav'

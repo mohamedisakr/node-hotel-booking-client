@@ -1,6 +1,8 @@
 import {useState} from 'react'
+import {useSelector} from 'react-redux'
 import {DatePicker, Select} from 'antd'
 import moment from 'moment'
+import {createHotel} from '../actions/hotel'
 
 const {Option} = Select
 
@@ -23,14 +25,24 @@ const NewHotel = () => {
     `${process.env.PUBLIC_URL}/images/100-100-preview.png`,
   )
 
-  const handleSubmit = (event) => {
-    //
+  const {
+    auth: {token},
+  } = useSelector((state) => ({...state}))
+  // const {user, token} = auth
+
+  const handleSubmit = async (event) => {
+    event.preventDefault()
+    const hotelToAdd = {title, content, location, image, price, from, to, bed}
+    await createHotel(token, hotelToAdd)
+    console.log(JSON.stringify(hotelToAdd, null, 4))
   }
 
   const handleImageChange = (event) => {
-    console.log(`files : ${event.target.files[0]}`)
-    setPreview(URL.createObjectURL(event.target.files[0]))
-    setImage(event.target.files[0])
+    const files = event.target.files
+    const firstFile = files[0]
+    // console.log(`first file : ${firstFile}`)
+    setImage(firstFile.name)
+    setPreview(URL.createObjectURL(firstFile))
   }
 
   const handleTitleChange = (event) => {
