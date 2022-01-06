@@ -1,11 +1,12 @@
 import {useState} from 'react'
-import AlgoliaPlaces from 'algolia-places-react'
-// import imagePreview from '../../public/images/100-100-preview.png'
+import {DatePicker} from 'antd'
+import moment from 'moment'
+// import AlgoliaPlaces from 'algolia-places-react'
 
-const options = {
-  appId: process.env.REACT_APP_ALGOLIA_APP_ID,
-  apiKey: process.env.REACT_APP_ALGOLIA_API_KEY,
-}
+// const options = {
+//   appId: process.env.REACT_APP_ALGOLIA_APP_ID,
+//   apiKey: process.env.REACT_APP_ALGOLIA_API_KEY,
+// }
 
 const NewHotel = () => {
   const [title, setTitle] = useState('')
@@ -25,7 +26,7 @@ const NewHotel = () => {
   }
 
   const handleImageChange = (event) => {
-    // console.log(`files : ${event.target.files}`)
+    console.log(`files : ${event.target.files[0]}`)
     setPreview(URL.createObjectURL(event.target.files[0]))
     setImage(event.target.files[0])
   }
@@ -36,6 +37,10 @@ const NewHotel = () => {
 
   const handleContentChange = (event) => {
     setContent(event.target.value)
+  }
+
+  const handleLocationChange = (event) => {
+    setLocation(event.target.value)
   }
 
   const handlePriceChange = (event) => {
@@ -81,7 +86,17 @@ const NewHotel = () => {
             onChange={handleContentChange}
           />
 
-          <AlgoliaPlaces
+          <input
+            type="text"
+            name="location"
+            data-test-id="location"
+            className="form-control m-2"
+            placeholder="Location"
+            value={location}
+            onChange={handleLocationChange}
+          />
+
+          {/* <AlgoliaPlaces
             className="form-control ml-2 mr-2"
             placeholder="Where you love to visit!"
             defaultValue={location}
@@ -89,7 +104,7 @@ const NewHotel = () => {
             onChange={({suggestion}) => setLocation(suggestion.value)}
             style={{height: '50px'}}
             data-test-id="location"
-          />
+          /> */}
 
           <input
             type="number"
@@ -109,6 +124,24 @@ const NewHotel = () => {
             placeholder="Number of Beds"
             value={bed}
             onChange={handleBedChange}
+          />
+
+          <DatePicker
+            placeholder="From date"
+            className="form-control m-2"
+            onChange={(date, dateString) => setFrom(dateString)}
+            disabledDate={(current) =>
+              current && current.valueOf() < moment().subtract(1, 'days')
+            }
+          />
+
+          <DatePicker
+            placeholder="To date"
+            className="form-control m-2"
+            onChange={(date, dateString) => setTo(dateString)}
+            disabledDate={(current) =>
+              current && current.valueOf() < moment().subtract(1, 'days')
+            }
           />
         </div>
         <button className="btn btn-outline-primary m-2">Save</button>
