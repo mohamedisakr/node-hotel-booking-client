@@ -2,6 +2,11 @@ import {useState} from 'react'
 import AlgoliaPlaces from 'algolia-places-react'
 // import imagePreview from '../../public/images/100-100-preview.png'
 
+const options = {
+  appId: process.env.REACT_APP_ALGOLIA_APP_ID,
+  apiKey: process.env.REACT_APP_ALGOLIA_API_KEY,
+}
+
 const NewHotel = () => {
   const [title, setTitle] = useState('')
   const [content, setContent] = useState('')
@@ -76,6 +81,16 @@ const NewHotel = () => {
             onChange={handleContentChange}
           />
 
+          <AlgoliaPlaces
+            className="form-control ml-2 mr-2"
+            placeholder="Where you love to visit!"
+            defaultValue={location}
+            options={options}
+            onChange={({suggestion}) => setLocation(suggestion.value)}
+            style={{height: '50px'}}
+            data-test-id="location"
+          />
+
           <input
             type="number"
             name="price"
@@ -110,11 +125,7 @@ const NewHotel = () => {
         <div className="row">
           <div className="col-md-10">{hotelForm()}</div>
           <div className="col-md-2">
-            <img
-              src={preview}
-              alt="image preview"
-              className="img img-fluid m-2"
-            />
+            <img src={preview} alt="preview" className="img img-fluid m-2" />
             <pre>
               {JSON.stringify(
                 {
