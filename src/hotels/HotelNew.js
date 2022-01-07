@@ -37,7 +37,7 @@ const NewHotel = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault()
-    console.log(`user id : ${user._id}`)
+    // console.log(`user id : ${user._id}`)
     setPostedBy(user._id)
     const hotelToAdd = {
       title,
@@ -50,18 +50,27 @@ const NewHotel = () => {
       bed,
       postedBy: postedBy || user._id,
     }
-    console.table(hotelToAdd)
+
+    // console.table(hotelToAdd)
 
     try {
       const res = await createHotel(token, hotelToAdd)
-      console.log(JSON.stringify(hotelToAdd, null, 4))
+      console.log(`response : ${res}`)
+      // console.log(JSON.stringify(hotelToAdd, null, 4))
       resetFormState()
       toast.success('New hotel added successfully')
     } catch (err) {
-      console.error(err)
-      if (err.response.status === 400) {
-        toast.error(`${err.response.data.message}`)
-      }
+      console.log(`Error : ${err}`)
+      toast.error(`${err}`)
+
+      // if (err.status === 400) {
+      //   toast.error(`${err}`)
+      //   // toast.error(`${err.message}`)
+      // }
+
+      // if (err.response.status === 400) {
+      //   toast.error(`${err.response.data.message}`)
+      // }
     }
   }
 
