@@ -1,11 +1,12 @@
 import axios from 'axios'
 
 const apiUrl = process.env.REACT_APP_API_URL
-const url = `${apiUrl}/create-hotel`
+const createUrl = `${apiUrl}/create-hotel`
+const getAllUrl = `${apiUrl}/hotels`
 
 export const createHotel = async (token, hotel) => {
   try {
-    const res = await axios.post(url, hotel, {
+    const res = await axios.post(createUrl, hotel, {
       headers: {Authorization: `Bearer ${token}`},
     })
   } catch (err) {
@@ -14,6 +15,16 @@ export const createHotel = async (token, hotel) => {
     // if (err.response.status === 400) {
     //   console.log(`Error creating new hotel ${err}`)
     // }
+  }
+}
+
+export const getAllHotels = async () => {
+  try {
+    const res = await axios.get(getAllUrl)
+    return res
+  } catch (err) {
+    console.log(`Error : ${err}`)
+    return err.response.data.error
   }
 }
 
