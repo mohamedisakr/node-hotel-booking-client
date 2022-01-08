@@ -3,6 +3,7 @@ import {useParams} from 'react-router-dom'
 import {useSelector} from 'react-redux'
 import {read} from '../actions/hotel'
 import {toast} from 'react-toastify'
+import HotelEditForm from '../components/HotelEditForm'
 // import HotelNewForm from '../components/HotelNewForm'
 
 const EditHotel = () => {
@@ -134,7 +135,27 @@ const EditHotel = () => {
       </div>
       <div className="container-fluid">
         <div className="row">
-          <div className="col-md-10">show edit form</div>
+          <div className="col-md-10">
+            <HotelEditForm
+              handleSubmit={handleSubmit}
+              handleImageChange={handleImageChange}
+              title={title}
+              handleTitleChange={handleTitleChange}
+              content={content}
+              handleContentChange={handleContentChange}
+              location={location}
+              handleLocationChange={handleLocationChange}
+              price={price}
+              handlePriceChange={handlePriceChange}
+              bed={bed}
+              setBed={setBed}
+              handleBedChange={handleBedChange}
+              from={from}
+              setFrom={setFrom}
+              to={to}
+              setTo={setTo}
+            />
+          </div>
           <div className="col-md-2">
             <img src={preview} alt="preview" className="img img-fluid m-2" />
             <pre>
