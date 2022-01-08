@@ -1,4 +1,4 @@
-import {useState} from 'react'
+import {useEffect, useState} from 'react'
 import {useSelector} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {HomeOutlined} from '@ant-design/icons/lib/icons'
@@ -6,10 +6,24 @@ import {toast} from 'react-toastify'
 import DashboardNav from '../components/DashboardNav'
 import ConnectNav from '../components/ConnectNav'
 import {createConnectAccount} from '../actions/stripe'
+import {deleteHotel, getAllSellerHotels} from '../actions/hotel'
+import SmallCard from '../components/SmallCard'
 
 const DashboardSeller = () => {
   const {auth} = useSelector((state) => ({...state}))
+
   const [loading, setLoading] = useState(false)
+  const [hotels, setHotels] = useState([])
+
+  useEffect(() => {
+    loadSellerHotels()
+  }, [])
+
+  const loadSellerHotels = async () => {
+    const res = await getAllSellerHotels(auth.token)
+    console.log(`seller hotels ${res}`)
+    setHotels(res.data.data)
+  }
 
   const handleClick = async (event) => {
     setLoading(true)
@@ -22,6 +36,15 @@ const DashboardSeller = () => {
       toast.error(`Stripe connect failed. Try again`)
       setLoading(false)
     }
+  }
+
+  const handleHotelDelete = async (hotelId) => {
+    if (!window.confirm('Are you sure you want to delete this hotel')) return
+    const res = await deleteHotel(auth.token, hotelId)
+    if (res) {
+      toast.success(`Hotel deleted Successfully`)
+    }
+    await loadSellerHotels()
   }
 
   const connected = () => {
@@ -37,7 +60,18 @@ const DashboardSeller = () => {
             </Link>
           </div>
         </div>
-        <p>Show all bookings and a button to browse hotels</p>
+        <div className="row">
+          {/* {JSON.stringify(hotels, null, 4)} */}
+          {hotels.map((h) => (
+            <SmallCard
+              key={h._id}
+              h={h}
+              showViewMoreButton={false}
+              owner={true}
+              handleHotelDelete={handleHotelDelete}
+            />
+          ))}
+        </div>
       </div>
     )
   }
