@@ -27,7 +27,7 @@ export const deleteHotel = async (token, hotelId) => {
     const res = await axios.delete(`${deleteUrl}/${hotelId}`, {
       headers: {Authorization: `Bearer ${token}`},
     })
-    return res
+    // return res
   } catch (err) {
     console.log(`Error : ${err}`)
     return err.response.data.error

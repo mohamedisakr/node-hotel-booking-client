@@ -41,9 +41,9 @@ const DashboardSeller = () => {
   const handleHotelDelete = async (hotelId) => {
     if (!window.confirm('Are you sure you want to delete this hotel')) return
     const res = await deleteHotel(auth.token, hotelId)
-    if (res) {
-      toast.success(`Hotel deleted Successfully`)
-    }
+    toast.success(`Hotel deleted Successfully`)
+    // if (res) {
+    // }
     await loadSellerHotels()
   }
 
