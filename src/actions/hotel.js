@@ -3,6 +3,7 @@ import axios from 'axios'
 const apiUrl = process.env.REACT_APP_API_URL
 const createUrl = `${apiUrl}/create-hotel`
 const readUrl = `${apiUrl}/hotel`
+const updateUrl = `${apiUrl}/update-hotel`
 const deleteUrl = `${apiUrl}/delete-hotel`
 const getAllUrl = `${apiUrl}/hotels`
 const getSellerHotelsUrl = `${apiUrl}/seller`
@@ -70,22 +71,17 @@ export const read = async (hotelId) => {
   }
 }
 
-/*
-export const createHotel = async (token, hotel) => {
+export const updateHotel = async (token, hotel, hotelId) => {
   try {
-    const res = await axios.post(url, hotel, {
+    const res = await axios.put(`${updateUrl}/${hotelId}`, hotel, {
       headers: {Authorization: `Bearer ${token}`},
     })
-    return res.data
+    return res
   } catch (err) {
-    if (err.status === 400) {
-      return err
-    }
-    // console.log(`Error : ${err}`)
-    // return err.response.data //.data.error
+    console.log(`Error : ${err}`)
+    return err.response.data.error
     // if (err.response.status === 400) {
     //   console.log(`Error creating new hotel ${err}`)
     // }
   }
 }
-*/

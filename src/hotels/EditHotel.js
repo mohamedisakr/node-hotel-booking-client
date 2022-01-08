@@ -1,7 +1,7 @@
 import {useEffect, useState} from 'react'
 import {useParams} from 'react-router-dom'
 import {useSelector} from 'react-redux'
-import {read} from '../actions/hotel'
+import {read, updateHotel} from '../actions/hotel'
 import {toast} from 'react-toastify'
 import HotelEditForm from '../components/HotelEditForm'
 // import HotelNewForm from '../components/HotelNewForm'
@@ -81,11 +81,11 @@ const EditHotel = () => {
     }
 
     try {
-      //   const res = await createHotel(token, hotelToAdd)
-      //   console.log(`response : ${res}`)
-      //   // console.log(JSON.stringify(hotelToAdd, null, 4))
-      //   resetFormState()
-      //   toast.success('New hotel added successfully')
+      const res = await updateHotel(token, hotelToAdd, hotelId)
+      console.log(`hotel update response : ${res}`)
+      // console.log(JSON.stringify(hotelToAdd, null, 4))
+      resetFormState()
+      toast.success(`${res.data.title} is updated successfully`)
     } catch (err) {
       console.log(`Error : ${err}`)
       toast.error(`${err}`)
