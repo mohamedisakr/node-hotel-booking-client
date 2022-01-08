@@ -4,7 +4,12 @@ import {formatCurrency} from '../utils/currency'
 import {getNumberOfDays} from '../utils/date'
 import {pluralize} from '../utils/text'
 
-const SmallCard = ({h, handleHotelDelete = (f) => f}) => {
+const SmallCard = ({
+  h,
+  handleHotelDelete = (f) => f,
+  owner = false,
+  showViewMoreButton = true,
+}) => {
   const {_id, title, content, location, image, price, from, to, bed, postedBy} =
     h
   const navigate = useNavigate()
@@ -50,21 +55,27 @@ const SmallCard = ({h, handleHotelDelete = (f) => f}) => {
             </p> */}
 
             <div className="d-flex justify-content-between h4">
-              <button
-                className="btn btn-primary"
-                onClick={() => {
-                  navigate(`/hotel/${_id}`)
-                }}
-              >
-                Show more
-              </button>{' '}
-              <Link to={`/hotel/edit/${_id}`}>
-                <EditOutlined className="text-warning" />
-              </Link>
-              <DeleteOutlined
-                className="text-danger"
-                onClick={() => handleHotelDelete(_id)}
-              />
+              {showViewMoreButton && (
+                <button
+                  className="btn btn-primary"
+                  onClick={() => {
+                    navigate(`/hotel/${_id}`)
+                  }}
+                >
+                  Show more
+                </button>
+              )}
+              {owner && (
+                <>
+                  <Link to={`/hotel/edit/${_id}`}>
+                    <EditOutlined className="text-warning" />
+                  </Link>
+                  <DeleteOutlined
+                    className="text-danger"
+                    onClick={() => handleHotelDelete(_id)}
+                  />
+                </>
+              )}
             </div>
           </div>
         </div>
