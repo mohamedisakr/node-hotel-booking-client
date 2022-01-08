@@ -2,6 +2,7 @@ import axios from 'axios'
 
 const apiUrl = process.env.REACT_APP_API_URL
 const createUrl = `${apiUrl}/create-hotel`
+const readUrl = `${apiUrl}/hotel`
 const deleteUrl = `${apiUrl}/delete-hotel`
 const getAllUrl = `${apiUrl}/hotels`
 const getSellerHotelsUrl = `${apiUrl}/seller`
@@ -52,6 +53,16 @@ export const getAllSellerHotels = async (token) => {
     const res = await axios.get(getSellerHotelsUrl, {
       headers: {Authorization: `Bearer ${token}`},
     })
+    return res
+  } catch (err) {
+    console.log(`Error : ${err}`)
+    return err.response.data.error
+  }
+}
+
+export const read = async (hotelId) => {
+  try {
+    const res = await axios.get(`${readUrl}/${hotelId}`)
     return res
   } catch (err) {
     console.log(`Error : ${err}`)

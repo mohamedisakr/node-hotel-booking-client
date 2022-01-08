@@ -12,6 +12,7 @@ import Login from './auth/Login'
 import Dashboard from './user/Dashboard'
 import DashboardSeller from './user/DashboardSeller'
 import NewHotel from './hotels/HotelNew'
+import EditHotel from './hotels/EditHotel'
 
 const App = () => {
   return (
@@ -46,6 +47,15 @@ const App = () => {
           element={
             <PrivateRoute>
               <NewHotel />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          exact
+          path="/hotel/edit/:hotelId"
+          element={
+            <PrivateRoute>
+              <EditHotel />
             </PrivateRoute>
           }
         />
