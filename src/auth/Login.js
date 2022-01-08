@@ -6,11 +6,13 @@ import {login} from '../actions/auth'
 import LoginForm from '../components/LoginForm'
 
 const Login = () => {
-  const [email, setEmail] = useState('johndoe@gmail.com')
-  const [password, setPassword] = useState('password')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
 
   const dispatch = useDispatch()
   const navigate = useNavigate()
+
+  const testUser = {email: 'johndoe@gmail.com', password: 'password'}
 
   const handleSubmit = async (event) => {
     event.preventDefault()
@@ -35,6 +37,8 @@ const Login = () => {
       navigate('/dashboard')
     } catch (err) {
       console.error(`Error : ${err}`)
+
+      /*
       if (err.response.status === 400) {
         // if (err.status === 400) {
         // toast.error(`${err.response.data.message}`)
@@ -47,6 +51,7 @@ const Login = () => {
         // toast.error(`${err.response.message}`)
         toast.error(`${err.message}`)
       }
+      */
     }
   }
 

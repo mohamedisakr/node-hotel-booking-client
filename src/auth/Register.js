@@ -14,7 +14,7 @@ const Register = () => {
     event.preventDefault()
     try {
       const newUser = {name, email, password}
-      const res = register(newUser) //await axios.post(url, newUser)
+      const res = register(newUser)
       console.log(`register user ${res}`)
       toast.success('Register success, please login')
       navigate('/login')
