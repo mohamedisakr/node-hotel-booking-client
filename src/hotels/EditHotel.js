@@ -38,7 +38,7 @@ const EditHotel = () => {
     const {
       data: {data},
     } = await read(hotelId)
-    console.log(data)
+    // console.log(data)
     setHotel(data)
     const {title, content, location, image, price, from, to, bed, postedBy} =
       data
@@ -82,8 +82,14 @@ const EditHotel = () => {
 
     try {
       const res = await updateHotel(token, hotelToAdd, hotelId)
-      console.log(`hotel update response : ${res}`)
+      // const {
+      //   data: {data},
+      // } = await updateHotel(token, hotelToAdd, hotelId)
+
       // console.log(JSON.stringify(hotelToAdd, null, 4))
+      console.log(`hotel update response : ${JSON.stringify(res, null, 4)}`)
+      console.log(`response result : ${JSON.stringify(res.result, null, 4)}`)
+
       resetFormState()
       toast.success(`${res.data.title} is updated successfully`)
     } catch (err) {
