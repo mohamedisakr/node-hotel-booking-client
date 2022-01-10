@@ -1,13 +1,18 @@
 import moment from 'moment'
 import {useEffect, useState} from 'react'
-import {useParams} from 'react-router-dom'
+import {useSelector} from 'react-redux'
+import {useNavigate, useParams} from 'react-router-dom'
 import {read} from '../actions/hotel'
 import {getNumberOfDays} from '../utils/date'
 import {pluralize} from '../utils/text'
 
 const ViewHotel = () => {
+  // redux
+  const {auth} = useSelector((state) => ({...state}))
+
   // state
   const [hotel, setHotel] = useState({})
+  const navigate = useNavigate()
 
   // parameter
   const {hotelId} = useParams()
@@ -26,6 +31,16 @@ const ViewHotel = () => {
 
   const diff = (from, to) => {
     return getNumberOfDays(from, to)
+  }
+
+  const handleBookClick = (event) => {
+    event.preventDefault()
+    if (!auth) {
+      navigate('/login')
+    }
+    console.log(
+      `get session id from stripe to show a button > checkout with stripe`,
+    )
   }
 
   return (
@@ -68,8 +83,11 @@ const ViewHotel = () => {
               Posted by {hotel.postedBy && hotel.postedBy.name}
             </i>
             <br />
-            <button className="btn btn-block btn-lg btn-primary mt-3">
-              Book Now
+            <button
+              onClick={handleBookClick}
+              className="btn btn-block btn-lg btn-primary mt-3"
+            >
+              {auth && auth.token ? 'Book Now' : 'Login to Book'}
             </button>
           </div>
         </div>
