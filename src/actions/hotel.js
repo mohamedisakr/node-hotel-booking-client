@@ -7,6 +7,8 @@ const updateUrl = `${apiUrl}/update-hotel`
 const deleteUrl = `${apiUrl}/delete-hotel`
 const getAllUrl = `${apiUrl}/hotels`
 const getSellerHotelsUrl = `${apiUrl}/seller`
+const searchListingsUrl = `${apiUrl}/search-listings`
+
 // const getSellerHotelsUrl = `${apiUrl}/seller-hotels`
 
 export const createHotel = async (token, hotel) => {
@@ -83,5 +85,15 @@ export const updateHotel = async (token, hotel, hotelId) => {
     // if (err.response.status === 400) {
     //   console.log(`Error creating new hotel ${err}`)
     // }
+  }
+}
+
+export const searchListings = async (query) => {
+  try {
+    const res = await axios.post(searchListingsUrl, query)
+    return res
+  } catch (err) {
+    console.log(`Error : ${err}`)
+    return err.response.data.error
   }
 }

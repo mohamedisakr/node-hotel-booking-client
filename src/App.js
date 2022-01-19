@@ -14,6 +14,7 @@ import DashboardSeller from './user/DashboardSeller'
 import NewHotel from './hotels/HotelNew'
 import EditHotel from './hotels/EditHotel'
 import ViewHotel from './hotels/ViewHotel'
+import SearchResult from './hotels/SearchResult'
 
 const App = () => {
   return (
@@ -25,6 +26,7 @@ const App = () => {
         <Route exact path="/login" element={<Login />} />
         <Route exact path="/register" element={<Register />} />
         <Route exact path="/hotel/:hotelId" element={<ViewHotel />} />
+        <Route exact path="/search-result" element={<SearchResult />} />
         <Route
           exact
           path="/dashboard"
