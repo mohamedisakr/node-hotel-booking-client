@@ -12,7 +12,7 @@ const Home = () => {
 
   const loadAllHotels = async () => {
     const res = await getAllHotels()
-    console.log(`response : ${res}`)
+    // console.log(`response : ${res}`)
     setHotels(res.data.data)
   }
 

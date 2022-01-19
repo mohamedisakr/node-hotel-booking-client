@@ -12,11 +12,8 @@ const Search = () => {
   // state
   const [location, setLocation] = useState('')
   const [date, setDate] = useState('')
-  const [bed, setBed] = useState(0)
+  const [bed, setBed] = useState('')
   const navigate = useNavigate()
-
-  // parameter
-  const {hotelId} = useParams()
 
   const handleLocationChange = (event) => {
     setLocation(event.target.value)
@@ -29,7 +26,6 @@ const Search = () => {
 
   return (
     <div className="d-flex pb-4 ">
-      {/* <div className="w-100"> */}
       <input
         type="text"
         name="location"

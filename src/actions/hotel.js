@@ -89,11 +89,15 @@ export const updateHotel = async (token, hotel, hotelId) => {
 }
 
 export const searchListings = async (query) => {
-  try {
-    const res = await axios.post(searchListingsUrl, query)
-    return res
-  } catch (err) {
-    console.log(`Error : ${err}`)
-    return err.response.data.error
-  }
+  return await axios.post(searchListingsUrl, query)
 }
+
+// export const searchListings = async (query) => {
+//   try {
+//     const res = await axios.post(searchListingsUrl, query)
+//     return res
+//   } catch (err) {
+//     console.log(`Error : ${err}`)
+//     return err.response.data.error
+//   }
+// }
